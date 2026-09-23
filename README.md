@@ -1,6 +1,6 @@
-# LLM-Assisted Content Analysis Replication Materials
+# Land and Climate Claim Extraction and Clustering: Replication Materials
 
-Replication materials for an LLM-assisted content analysis of Brazilian parliamentary discourse.
+Replication materials for an LLM-assisted analysis of land and climate discourse in the Brazilian Chamber of Deputies. The repository contains the prompts, computational pipeline, analytical datasets, and taxonomic outputs used for claim extraction, semantic normalization, multi-resolution clustering, and researcher-led taxonomic interpretation.
 
 ## Repository structure
 
