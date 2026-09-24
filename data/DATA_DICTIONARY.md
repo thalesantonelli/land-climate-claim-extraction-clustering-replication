@@ -1,24 +1,6 @@
-# Land and Climate Claim Extraction and Clustering: Replication Data
+# Data Dictionary
 
-## Overview
-
-This dataset contains the analytical materials used in an LLM-assisted analysis of land, territorial, environmental, and climate discourse in the Brazilian Chamber of Deputies. The materials were produced as part of the author's Master's dissertation.
-
-The replication package includes **26,644 parliamentary speeches** and **41,039 claims reported in the article**, together with analytical classifications, canonicalized claim representations, and the final **Macro/Meso/Micro** taxonomy. These are the final totals reported in the article. The corrected claims CSV contains **41,038 identified claims**. An exported record without claim identification or text was removed. The historical article total of 41,039 is retained here as a reported figure, not as the corrected file row count. The final analytical corpus contains **797 claims**, identified in this export by a nonempty `macro` field and confirmed by the author.
-
-The final taxonomy was developed through researcher-led interpretation of multi-resolution semantic clustering results. Computational clusters supported the analytical work; the taxonomy was not simply an automatically generated clustering output.
-
-The associated computational pipeline, prompts, and documentation are available in the [replication repository](https://github.com/thalesantonelli/land-climate-claim-extraction-clustering-replication).
-
-## Package contents
-
-| File | Contents | Unit of observation |
-| --- | --- | --- |
-| `parliamentary_speeches.csv` (supplied inside `parliamentary_speeches.zip`) | Corpus of 26,644 parliamentary speeches, source metadata, and analytical classifications. | Parliamentary speech. |
-| `extracted_claims.csv` | 41,038 identified claims, including the 797 final analytical claims, analytical classifications, canonicalized forms, and Macro/Meso/Micro labels. | Extracted argumentative claim. |
-| `taxonomy.csv` | Final hierarchical analytical taxonomy connecting Macro, Meso, and Micro categories. | A documented Macro/Meso/Micro category relationship. |
-| `README.md` | Consolidated documentation, including the full data dictionary. | Documentation. |
-| `DATA_DICTIONARY.md` | Standalone copy of the variable definitions for convenient consultation. | Documentation. |
+Corrected release: 26,644 speeches, 41,038 identified claims, and 797 author-confirmed final analytical claims. The article reports 41,039 extracted claims; see the correction notes for the distinction.
 
 ## Data dictionary
 
@@ -78,20 +60,6 @@ The three component classification fields preserve the original stored values. W
 
 The taxonomy contains 21 rows, 5 distinct Macro categories, 14 distinct Meso categories, and 12 distinct nonempty Micro categories. Nine rows have an empty `micro` field: these rows specify no Micro category. The claims file mixes final numbered category labels and other textual labels. Do not join every label to the final taxonomy or interpret blank labels as an HDBSCAN noise code. Some labels differ in whitespace or wording.
 
-## Semantic clustering and analytical interpretation
-
-The final HDBSCAN settings recorded for the three levels of semantic granularity are:
-
-| Level | `min_cluster_size` | `min_samples` | Additional recorded setting |
-| --- | --- | --- | --- |
-| Macro | 40 | 15 | — |
-| Meso | 25 | 10 | — |
-| Micro | 12 | 6 | `cluster_selection_method="leaf"` |
-
-The dash indicates that no additional setting is specified here; it does not prescribe a software default. These are the recorded granularity settings, not a complete specification of the computational environment. Consult the replication repository for the pipeline, prompts, preprocessing, and implementation details.
-
-The three clustering resolutions informed researcher-led interpretation and construction of the final Macro/Meso/Micro taxonomy. The nesting of the final analytical categories should not be taken as proof that independently computed cluster solutions are mechanically nested.
-
 ## Relationships and reuse
 
 Use `speech_id` to trace an extracted claim back to its source speech and to consult the original text and metadata. The speech and claim files represent different units of observation: a count of claims is not a count of speeches.
@@ -125,16 +93,3 @@ All other values, including component classifications, claim text, category labe
 
 The final 797 claims include 142 with numbered final Macro categories and 655 with other textual Macro labels. The author confirmation establishes sample membership, not a complete mapping of all stored labels to the final taxonomy. Among the original 142 marked claims, 6 Meso labels and 10 nonempty Micro labels do not match the corresponding taxonomy vocabulary after trimming whitespace. Exact-text taxonomy joins therefore still require review. No category assignments or component classifications were inferred or replaced in this correction.
 
-## Provenance and related research
-
-Parliamentary speech records originate from the Brazilian Chamber of Deputies Open Data portal. Claim extraction, analytical classification, semantic processing, clustering, and taxonomic organization were produced through the research workflow documented in the accompanying replication repository.
-
-The dataset was produced as part of the author's Master's dissertation. At the time this documentation was prepared, no public persistent identifier for the dissertation had been supplied. No provisional dissertation URL or identifier is asserted here.
-
-When citing the dataset, use the citation and DOI supplied by the published Zenodo record, including the relevant dataset version. Cite the accompanying code separately when reusing the computational pipeline.
-
-## License
-
-The replication dataset is released under the Creative Commons Attribution 4.0 International (CC BY 4.0) license.
-
-The license applies to the original analytical, organizational, and derived components of this deposit to the extent permitted by applicable law. Parliamentary speech texts retain their original provenance in the Brazilian Chamber of Deputies. This statement does not assert authorship of the parliamentary speeches or specify the license of the accompanying software repository.
