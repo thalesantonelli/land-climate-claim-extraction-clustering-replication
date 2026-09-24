@@ -1,8 +1,7 @@
 # Data Dictionary
 
-Corrected release: 26,644 speeches, 41,038 identified claims, and 797 author-confirmed final analytical claims. The article reports 41,039 extracted claims; see the correction notes for the distinction.
+This dictionary describes the supplied extracted_claims.csv and parliamentary_speeches.csv, with the updated taxonomy.csv. No new claim-classification fields have been added.
 
-## Data dictionary
 
 ### `parliamentary_speeches.csv`
 
@@ -58,38 +57,7 @@ The three component classification fields preserve the original stored values. W
 | `meso` | Intermediate analytical category nested within the corresponding Macro category. |
 | `micro` | Most specific analytical category nested within the corresponding Meso category. |
 
-The taxonomy contains 21 rows, 5 distinct Macro categories, 14 distinct Meso categories, and 12 distinct nonempty Micro categories. Nine rows have an empty `micro` field: these rows specify no Micro category. The claims file mixes final numbered category labels and other textual labels. Do not join every label to the final taxonomy or interpret blank labels as an HDBSCAN noise code. Some labels differ in whitespace or wording.
+The taxonomy contains 23 rows, 5 distinct Macro categories, 15 distinct Meso categories, and 14 distinct nonempty Micro categories. Nine rows have an empty `micro` field: these rows specify no Micro category. The claims file mixes final numbered category labels and other textual labels. Do not join every label to the final taxonomy or interpret blank labels as an HDBSCAN noise code. Some labels differ in whitespace or wording.
 
-## Relationships and reuse
-
-Use `speech_id` to trace an extracted claim back to its source speech and to consult the original text and metadata. The speech and claim files represent different units of observation: a count of claims is not a count of speeches.
-
-To recover the final analytical corpus, filter `considered` for `Sim`: this returns exactly 797 records. A nonempty `macro` field identifies the same set in this release. This equivalence is specific to this dataset and is based on author confirmation.
-
-Consult the source speech when interpreting a claim, and distinguish extracted wording from the processed representation in `canonical_claim`. Classifications and categories are research outputs and should be interpreted in the context of the documented analytical procedure.
-
-## Language and file conventions
-
-Parliamentary speeches, extracted claims, and substantive analytical categories are in Portuguese. Variable names and this documentation are in English.
-
-All three supplied CSVs decode as UTF-8 with a byte-order mark (BOM). They use comma delimiters, double-quoted text where required, and doubled internal quotation marks. Import them with a CSV-aware reader rather than splitting lines on commas. Every parsed record has the expected number of fields.
-
-Dates are recorded as `YYYY-MM-DD`. Speech dates range from 2000-10-10 to 2024-12-19. Recorded times include values such as `14h14`. Treat identifiers as text. The fields `speaker`, `party`, and `state` retain source/export conventions: speaker strings can include party/state information, party values can contain leading spaces, and state values are not uniformly standardized two-letter codes. Retrieval keywords can be separated by semicolons within a cell.
-
-The classification fields and `considered` contain only `Sim` or empty cells. Empty cells also occur in metadata and category fields. In `considered`, an empty cell denotes exclusion from the final analytical corpus. In the legacy component classification columns, an empty cell is an unrecorded affirmative value whose substantive meaning is not established by this correction.
-
-## Counts, corrections, and remaining limitations
-
-The dissertation, *É tudo sobre a Terra: A instrumentalização do clima na deslegitimação da luta pela terra no Congresso Nacional (2000–2024)* (Thales Rodrigues Antonelli, 2026), reports **797 final claims** on printed page 109 (PDF page 110). Printed page 104 describes the joint three-condition inclusion criterion.
-
-The dissertation reports 41,038 extracted claims on printed page 102 and 41,039 on printed page 109. The article's historical total is 41,039. The corrected CSV contains 41,038 identified claims, agreeing with printed page 102. The final corpus remains 797 claims.
-
-The original workbook and earlier claims CSV matched on all exported fields. The corrected release makes two changes:
-
-1. Marks 655 additional author-confirmed final claims as `considered=Sim`, retaining the original 142 positive flags, for a total of 797.
-2. Removes the record without speech ID, date, claim ID, claim text, or canonical claim, which contained only `meso=0` and `micro=0`. This was original data record 798 (CSV record 799 counting the header).
-
-All other values, including component classifications, claim text, category labels, and identifiers, are unchanged. All 41,038 corrected claim IDs are unique and link to existing source speeches. The 26,644 speech records and the taxonomy CSV are unchanged.
-
-The final 797 claims include 142 with numbered final Macro categories and 655 with other textual Macro labels. The author confirmation establishes sample membership, not a complete mapping of all stored labels to the final taxonomy. Among the original 142 marked claims, 6 Meso labels and 10 nonempty Micro labels do not match the corresponding taxonomy vocabulary after trimming whitespace. Exact-text taxonomy joins therefore still require review. No category assignments or component classifications were inferred or replaced in this correction.
+The added paths are Meso 5.5 with Micro 5.5.1 and 5.5.2, documented in the dissertation's Figure 2 (printed p. 110), detailed Macro 5 table (p. 121), and discussion (pp. 122–123). The pre-existing 21 paths and their wording are preserved. Match numbered categories by their leading category code when wording differs; unnumbered labels cannot be assigned a final category from text matching alone.
 

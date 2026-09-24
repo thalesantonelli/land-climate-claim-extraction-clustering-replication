@@ -2,25 +2,48 @@
 
 ## Overview
 
-This dataset contains the analytical materials used in an LLM-assisted analysis of land, territorial, environmental, and climate discourse in the Brazilian Chamber of Deputies. The materials were produced as part of the author's Master's dissertation.
+This dataset accompanies Thales Antonelli's research on land, territorial, climate and environmental discourse in the Brazilian Chamber of Deputies. The dissertation and article provide the methodological and substantive reference. The files support inspection of parliamentary speeches, extracted claims, sample selection and the researcher-developed Macro/Meso/Micro taxonomy.
 
-The replication package includes **26,644 parliamentary speeches** and **41,039 claims reported in the article**, together with analytical classifications, canonicalized claim representations, and the final **Macro/Meso/Micro** taxonomy. These are the final totals reported in the article. The corrected claims CSV contains **41,038 identified claims**. An exported record without claim identification or text was removed. The historical article total of 41,039 is retained here as a reported figure, not as the corrected file row count. The final analytical corpus contains **797 claims**, identified in this export by a nonempty `macro` field and confirmed by the author.
+The article reports **26,644 speeches, 41,039 extracted claims, 21,244 land-relevant claims, 5,246 contestatory claims, 797 final analytical claims, and a taxonomy of 5 Macro, 15 Meso and 15 Micro categories**. These are reported results, not a claim that every number is independently reproduced by the supplied files. The evidence below distinguishes exact reproduction from unresolved differences. Neither the dissertation nor the article has been edited as part of this file update.
 
-The final taxonomy was developed through researcher-led interpretation of multi-resolution semantic clustering results. Computational clusters supported the analytical work; the taxonomy was not simply an automatically generated clustering output.
+## Files
 
-The associated computational pipeline, prompts, and documentation are available in the [replication repository](https://github.com/thalesantonelli/land-climate-claim-extraction-clustering-replication).
+| File | Contents |
+| --- | --- |
+| parliamentary_speeches.csv, inside the supplied parliamentary_speeches (1).zip | Parliamentary corpus and source metadata. The download suffix (1) has no analytical meaning. |
+| extracted_claims.csv | Extracted claims, original component classifications, stored Macro/Meso/Micro labels and the confirmed considered selection. |
+| taxonomy.csv | Hierarchy of named categories, supplemented with the two documented paths under Meso 5.5. |
+| README.md | Consolidated documentation and evidence connecting files to reported results. |
+| DATA_DICTIONARY.md | Standalone copy of the dictionary below. |
 
-## Package contents
+The source workbook, `2025.12.24 - Corpus Final - Proferimentos sobre Terra e Clima.xlsx`, is the provenance reference for the CSV export. It is not a second set of independent observations.
 
-| File | Contents | Unit of observation |
+## Evidence connecting the files to the text
+
+Dissertation page numbers below refer to the printed page numbers (PDF page = printed page + 1).
+
+| Result in the text | Evidence or operation in the supplied files | Finding |
 | --- | --- | --- |
-| `parliamentary_speeches.csv` (supplied inside `parliamentary_speeches.zip`) | Corpus of 26,644 parliamentary speeches, source metadata, and analytical classifications. | Parliamentary speech. |
-| `extracted_claims.csv` | 41,038 identified claims, including the 797 final analytical claims, analytical classifications, canonicalized forms, and Macro/Meso/Micro labels. | Extracted argumentative claim. |
-| `taxonomy.csv` | Final hierarchical analytical taxonomy connecting Macro, Meso, and Micro categories. | A documented Macro/Meso/Micro category relationship. |
-| `README.md` | Consolidated documentation, including the full data dictionary. | Documentation. |
-| `DATA_DICTIONARY.md` | Standalone copy of the variable definitions for convenient consultation. | Documentation. |
+| 26,644 speeches (dissertation pp. 92 and 109; article §3) | Count data records in parliamentary_speeches.csv. | Reproduced: 26,644. |
+| 41,039 claims (dissertation p. 109; article §§3–3.1) | Count valid claim_id values in extracted_claims.csv and compare the workbook's claims sheet. | 41,038 identified claims. The source sheet has one additional row (Excel row 799) containing counting formulas in K/L and no claim identifier or text. Dissertation p. 102 also reports 41,038. The missing unit is not an identified claim that can be restored from these sources. |
+| 21,244 land-relevant claims (dissertation p. 109; article §§3–3.2) | Count land_relevance = Sim. | Reproduced: 21,244. |
+| 5,246 contestatory claims within the preceding stage (same passages) | Count land_relevance = Sim AND delegitimization = Sim. | Reproduced: 5,246. |
+| 797 final claims (dissertation p. 109; article §§3–3.3) | Count considered = Sim; compare claim IDs to records with nonempty Macro in the source workbook. | Reproduced as a selected set: 797. Selection was confirmed by the author. The three stored component columns together return 706, so the final filtering operation is not independently reproduced by those columns. |
+| All three substantive inclusion criteria positive (dissertation p. 104; article §3.2) | Compare the component columns with considered. | The intended definition is preserved. Source columns have missing values and do not reproduce the confirmed membership; no missing classification has been filled from membership. |
+| 5 Macro, 15 Meso, 15 Micro (article §§3 and 5; dissertation narrative) | Count distinct named categories by level; inspect dissertation Figure 2 (p. 110) and category tables. | The updated taxonomy documents 5 Macro, 15 Meso and 14 Micro. The supplied taxonomy previously omitted Meso 5.5 and its two Micro children. A fifteenth named Micro category has not been located. |
+
+This distinction keeps the text as the reference while making the evidential reach of the files explicit. Reported counts have not been made true by generating observations or classifications.
+
+## Scope of this update
+
+Only taxonomy.csv, README.md and DATA_DICTIONARY.md are replaced by this update. The current extracted_claims.csv, the speech ZIP and the source XLSX are retained unchanged. No original claim labels are removed or reassigned, and no original_* or final_* columns are introduced.
+
+Two paths were appended to taxonomy.csv: 5 → 5.5 → 5.5.1 and 5 → 5.5 → 5.5.2. The existing 21 paths retain their values. Their wording is sometimes different from the shorter labels in the dissertation, so the numbered code is the appropriate link for already numbered assignments.
+
+The final taxonomy is an analytical vocabulary, not proof of a complete claim-by-claim final coding table. In the supplied claims file, 142 of the 797 selected claims have numbered Macro categories; the other 655 have unnumbered labels. The present update preserves both and does not infer a historical mapping between them.
 
 ## Data dictionary
+
 
 ### `parliamentary_speeches.csv`
 
@@ -76,9 +99,12 @@ The three component classification fields preserve the original stored values. W
 | `meso` | Intermediate analytical category nested within the corresponding Macro category. |
 | `micro` | Most specific analytical category nested within the corresponding Meso category. |
 
-The taxonomy contains 21 rows, 5 distinct Macro categories, 14 distinct Meso categories, and 12 distinct nonempty Micro categories. Nine rows have an empty `micro` field: these rows specify no Micro category. The claims file mixes final numbered category labels and other textual labels. Do not join every label to the final taxonomy or interpret blank labels as an HDBSCAN noise code. Some labels differ in whitespace or wording.
+The taxonomy contains 23 rows, 5 distinct Macro categories, 15 distinct Meso categories, and 14 distinct nonempty Micro categories. Nine rows have an empty `micro` field: these rows specify no Micro category. The claims file mixes final numbered category labels and other textual labels. Do not join every label to the final taxonomy or interpret blank labels as an HDBSCAN noise code. Some labels differ in whitespace or wording.
+
+The added paths are Meso 5.5 with Micro 5.5.1 and 5.5.2, documented in the dissertation's Figure 2 (printed p. 110), detailed Macro 5 table (p. 121), and discussion (pp. 122–123). The pre-existing 21 paths and their wording are preserved. Match numbered categories by their leading category code when wording differs; unnumbered labels cannot be assigned a final category from text matching alone.
 
 ## Semantic clustering and analytical interpretation
+
 
 The final HDBSCAN settings recorded for the three levels of semantic granularity are:
 
@@ -92,40 +118,14 @@ The dash indicates that no additional setting is specified here; it does not pre
 
 The three clustering resolutions informed researcher-led interpretation and construction of the final Macro/Meso/Micro taxonomy. The nesting of the final analytical categories should not be taken as proof that independently computed cluster solutions are mechanically nested.
 
-## Relationships and reuse
+## Reuse and file conventions
 
-Use `speech_id` to trace an extracted claim back to its source speech and to consult the original text and metadata. The speech and claim files represent different units of observation: a count of claims is not a count of speeches.
+Filter considered = Sim to retrieve the 797-claim analytical set. Link speech_id to the parliamentary corpus for source context. Keep identifiers as text. CSV files use UTF-8 with BOM, comma separators and standard CSV quoting. A blank component classification is not a verified negative judgment. A blank considered denotes exclusion from the confirmed final set.
 
-To recover the final analytical corpus, filter `considered` for `Sim`: this returns exactly 797 records. A nonempty `macro` field identifies the same set in this release. This equivalence is specific to this dataset and is based on author confirmation.
-
-Consult the source speech when interpreting a claim, and distinguish extracted wording from the processed representation in `canonical_claim`. Classifications and categories are research outputs and should be interpreted in the context of the documented analytical procedure.
-
-## Language and file conventions
-
-Parliamentary speeches, extracted claims, and substantive analytical categories are in Portuguese. Variable names and this documentation are in English.
-
-All three supplied CSVs decode as UTF-8 with a byte-order mark (BOM). They use comma delimiters, double-quoted text where required, and doubled internal quotation marks. Import them with a CSV-aware reader rather than splitting lines on commas. Every parsed record has the expected number of fields.
-
-Dates are recorded as `YYYY-MM-DD`. Speech dates range from 2000-10-10 to 2024-12-19. Recorded times include values such as `14h14`. Treat identifiers as text. The fields `speaker`, `party`, and `state` retain source/export conventions: speaker strings can include party/state information, party values can contain leading spaces, and state values are not uniformly standardized two-letter codes. Retrieval keywords can be separated by semicolons within a cell.
-
-The classification fields and `considered` contain only `Sim` or empty cells. Empty cells also occur in metadata and category fields. In `considered`, an empty cell denotes exclusion from the final analytical corpus. In the legacy component classification columns, an empty cell is an unrecorded affirmative value whose substantive meaning is not established by this correction.
-
-## Counts, corrections, and remaining limitations
-
-The dissertation, *É tudo sobre a Terra: A instrumentalização do clima na deslegitimação da luta pela terra no Congresso Nacional (2000–2024)* (Thales Rodrigues Antonelli, 2026), reports **797 final claims** on printed page 109 (PDF page 110). Printed page 104 describes the joint three-condition inclusion criterion.
-
-The dissertation reports 41,038 extracted claims on printed page 102 and 41,039 on printed page 109. The article's historical total is 41,039. The corrected CSV contains 41,038 identified claims, agreeing with printed page 102. The final corpus remains 797 claims.
-
-The original workbook and earlier claims CSV matched on all exported fields. The corrected release makes two changes:
-
-1. Marks 655 additional author-confirmed final claims as `considered=Sim`, retaining the original 142 positive flags, for a total of 797.
-2. Removes the record without speech ID, date, claim ID, claim text, or canonical claim, which contained only `meso=0` and `micro=0`. This was original data record 798 (CSV record 799 counting the header).
-
-All other values, including component classifications, claim text, category labels, and identifiers, are unchanged. All 41,038 corrected claim IDs are unique and link to existing source speeches. The 26,644 speech records and the taxonomy CSV are unchanged.
-
-The final 797 claims include 142 with numbered final Macro categories and 655 with other textual Macro labels. The author confirmation establishes sample membership, not a complete mapping of all stored labels to the final taxonomy. Among the original 142 marked claims, 6 Meso labels and 10 nonempty Micro labels do not match the corresponding taxonomy vocabulary after trimming whitespace. Exact-text taxonomy joins therefore still require review. No category assignments or component classifications were inferred or replaced in this correction.
+The text and recorded files remain distinguishable: preserving the research's substantive definition of considered does not establish that incomplete stored component fields reproduce every selection decision.
 
 ## Provenance and related research
+
 
 Parliamentary speech records originate from the Brazilian Chamber of Deputies Open Data portal. Claim extraction, analytical classification, semantic processing, clustering, and taxonomic organization were produced through the research workflow documented in the accompanying replication repository.
 
@@ -138,12 +138,3 @@ When citing the dataset, use the citation and DOI supplied by the published Zeno
 The replication dataset is released under the Creative Commons Attribution 4.0 International (CC BY 4.0) license.
 
 The license applies to the original analytical, organizational, and derived components of this deposit to the extent permitted by applicable law. Parliamentary speech texts retain their original provenance in the Brazilian Chamber of Deputies. This statement does not assert authorship of the parliamentary speeches or specify the license of the accompanying software repository.
-
-The replication dataset is available on Zenodo: https://doi.org/10.5281/zenodo.22927513
-
-The deposit contains 26,644 parliamentary speeches, 41,038 identified claims, the final analytical selection of 797 claims, the Macro/Meso/Micro taxonomy, and dataset documentation.
-
-The computational pipeline and prompts are available in this GitHub repository. See data/README.md for variable definitions and documented corrections.
-
-Dataset citation
-Antonelli, T. (2026). Land and Climate Claim Extraction and Clustering: Replication Data (Version 1.0.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.22927513
