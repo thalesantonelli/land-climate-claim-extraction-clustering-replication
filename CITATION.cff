@@ -1,8 +1,19 @@
 cff-version: 1.2.0
-message: "If you use these replication materials, please cite the associated article."
-title: "LLM-Assisted Content Analysis Replication Materials"
+message: "If you use these replication materials, please cite the dataset below."
+title: "Land and Climate Claim Extraction and Clustering: Replication Materials"
 type: software
 authors:
   - family-names: "Antonelli"
     given-names: "Thales"
 version: 0.1.0
+
+preferred-citation:
+  type: data
+  authors:
+    - family-names: "Antonelli"
+      given-names: "Thales"
+  title: "Land and Climate Claim Extraction and Clustering: Replication Data"
+  year: 2026
+  version: "1.0.0"
+  doi: "10.5281/zenodo.22927513"
+  url: "https://zenodo.org/records/22927513"
