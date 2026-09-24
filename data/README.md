@@ -138,3 +138,12 @@ When citing the dataset, use the citation and DOI supplied by the published Zeno
 The replication dataset is released under the Creative Commons Attribution 4.0 International (CC BY 4.0) license.
 
 The license applies to the original analytical, organizational, and derived components of this deposit to the extent permitted by applicable law. Parliamentary speech texts retain their original provenance in the Brazilian Chamber of Deputies. This statement does not assert authorship of the parliamentary speeches or specify the license of the accompanying software repository.
+
+The replication dataset is available on Zenodo: https://doi.org/10.5281/zenodo.22927513
+
+The deposit contains 26,644 parliamentary speeches, 41,038 identified claims, the final analytical selection of 797 claims, the Macro/Meso/Micro taxonomy, and dataset documentation.
+
+The computational pipeline and prompts are available in this GitHub repository. See data/README.md for variable definitions and documented corrections.
+
+Dataset citation
+Antonelli, T. (2026). Land and Climate Claim Extraction and Clustering: Replication Data (Version 1.0.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.22927513
